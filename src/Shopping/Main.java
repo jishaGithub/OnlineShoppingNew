@@ -23,28 +23,21 @@ public class Main {
         product1.setProduct("Broccali", "Vegetables", 5);
         System.out.println(product1.getProductDetails());
 
-
         Cart cart1 = new Cart(1);
         cart1.addProductsToCart(3, "apples",2.50, 4);
         cart1.addProductsToCart(4, "oranges",2.0, 3);
         cart1.addProductsToCart(2, "peaches",1.0, 2);
         cart1.viewCart();
 
-
         Payment payment1 = new Payment(1001,1);
         payment1.setCardType("Visa");
         payment1.setCardNo("1234567899043567");
         payment1.makePurchase();
 
-
         Shipping shipping1 = new Shipping(1,2);
         shipping1.setShippingAddress("lost lake lane, keene, nh, 78645");
         shipping1.setShippingCompany("Fedex");
         System.out.println(shipping1.shippingInfo());
-
-
-
-
 
     }
 
