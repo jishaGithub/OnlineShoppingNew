@@ -38,7 +38,6 @@ public class Main {
         shipping1.setShippingAddress("lost lake lane, keene, nh, 78645");
         shipping1.setShippingCompany("Fedex");
         System.out.println(shipping1.shippingInfo());
-
     }
 
 }

@@ -31,6 +31,5 @@ package Shopping;
         public void setUserId(int userId) {
             this.userId = userId;
         }
-
     }
 
