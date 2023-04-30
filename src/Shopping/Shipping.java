@@ -1,14 +1,41 @@
 package Shopping;
-public class Shipping {
+
+public class Shipping implements ShippingInterface{
+
+
     private int shippingId;
-    private int userId;
     private String shippingAddress;
     private String shippingCompany;
+    private ShippingPreference shippingPref;
+    private static double shippingCost;
 
-    //custom constructor
-    public Shipping(int shippingId, int userId) {
-        this.setShippingId(shippingId);
-        this.setUserId(userId);
+
+    static {
+        shippingCost = 0;
+    }
+
+    public Shipping( int shippingId) {
+
+        this.shippingId = shippingId;
+    }
+
+    public final double calculateShippingCost(ShippingPreference shippingPref, double totalPrice) {
+
+        if(shippingPref.equals(shippingPref)) {
+            shippingCost = 50;
+            return this.domestic(totalPrice);
+
+        }
+        else {
+            shippingCost = 100;;
+            return this.international(totalPrice);
+        }
+    }
+
+
+
+    public static double getShippingcost() {
+        return shippingCost;
     }
 
     // function for displaying the shipping confirmation
@@ -17,45 +44,56 @@ public class Shipping {
                 +". \nShipping via "+this.getShippingCompany();
     }
 
-    // getter for shipping id
+    @Override
+    public double domestic(double totalPrice) {
+
+        return totalPrice + Shipping.getShippingcost();
+    }
+
+
+
+
+    @Override
+    public double international(double totalPrice) {
+        return totalPrice * Shipping.getShippingcost();
+    }
+
+
     public int getShippingId() {
         return shippingId;
     }
 
-    // setter for shipping id
     public void setShippingId(int shippingId) {
         this.shippingId = shippingId;
     }
 
-    // getter for user id
-    public int getUserId() {
-        return userId;
-    }
-
-    // setter for user id
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    // getter for shipping address
     public String getShippingAddress() {
         return shippingAddress;
     }
 
-    // setter for shipping address
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
-    // getter for shipping company info
     public String getShippingCompany() {
         return shippingCompany;
     }
 
-    // setter for shipping company info
     public void setShippingCompany(String shippingCompany) {
         this.shippingCompany = shippingCompany;
     }
+
+    public ShippingPreference getShippingPref() {
+        return shippingPref;
+    }
+
+    public void setShippingPref(ShippingPreference shippingPref) {
+        this.shippingPref = shippingPref;
+    }
+
+
+
+
 
 
 

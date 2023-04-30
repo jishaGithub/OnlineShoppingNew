@@ -1,28 +1,26 @@
 package Shopping;
 
-
-
 public class Cart {
 
-    private int cartId;
+    protected int cartId;
     private int productId;
     private String productName;
     private double productPrice;
     private int count;
-    private double totalPrice=0;
+    protected double totalPrice=0;
     private double currentTotal;
     private String cart ="\nMy Cart \n\n";
 
     // custom constructor
     public Cart(int cartId) {
-        this.setCartId(cartId);
+        this.cartId = cartId;
 
     }
 
     //  method for adding products to cart
     public void addProductsToCart(int productId, String productName, double productPrice, int count) {
         this.productId = productId;
-        this.setProductName(productName);
+        this.productName = productName;
         this.productPrice = productPrice;
         this.count = count;
         this.currentTotal = productPrice*count;
@@ -56,15 +54,7 @@ public class Cart {
         this.productName = productName;
     }
 
-    // getter for cart Id
-    public int getCartId() {
-        return cartId;
-    }
 
-    //setter for cart Id
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
 
 
 

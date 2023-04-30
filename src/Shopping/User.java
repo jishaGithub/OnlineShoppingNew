@@ -1,40 +1,12 @@
 package Shopping;
 
-public class User {
-    private int userId;
-    private String userName;
-    private String password;
-    private int addressId;
-    //custom constructor
-    public User(int userId, int addressId) {
-        this.userId = userId;
-        this.addressId = addressId;
-    }
-    //setter for login information
-    public void setLoginCredentials(String userName,String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-    //getter for userInfo
-    public String getUserInformation() {
-        return "UserId: "+this.userId + " UserName: "+this.userName +" Password: "+this.password;
-    }
-    //getter for userName
-    public String getUserName() {
-        return this.userName;
-    }
-    //getter for password
-    public String getPassword() {
-        return this.password;
-    }
-    // method for
-    public int getAddressId() {
+public abstract class User {
+    protected UserInfo userInfo1;
+    protected Address address;
 
-        return this.addressId;
-    }
-
-
-
+    public abstract void getUserInfo();
+    public abstract void welcomeMsg();
+    public abstract void login(String userName, String password);
 
 
 }
