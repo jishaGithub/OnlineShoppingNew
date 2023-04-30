@@ -2,7 +2,6 @@
 package Shopping;
 
 public class Main {
-
     public static void main(String[] args) {
 
         Owner owner1 = new Owner(1,"Tom");
