@@ -44,9 +44,7 @@ public class Seller extends User{
 
     @Override
     public void getUserInfo() {
-        userInfo1 = new UserInfo("Sam","sam@gmail.com");
-        userInfo1.getSellerInfo();
-
+     super.getSellerInfo();
     }
 
     @Override
@@ -56,7 +54,10 @@ public class Seller extends User{
     }
 
     @Override
-    public void login(String userName, String password) {
+    public void login(String userName, String password) throws SameValueException {
+        if(userName==password){
+            throw new SameValueException("The username and password cannot be same");
+        }
         if(userName.equals(this.getUserName())&&(password.equals(this.getPassword()))) {
             System.out.println(this.getUserName()+" logged in successfully");
         }
@@ -70,6 +71,11 @@ public class Seller extends User{
         product = new Product(productId, productName, productCategory, productPrice, productCount);
         System.out.println(product);
 
+    }
+
+
+    public void setSellerInfo(String name, String emailAddress){
+        super.setUserInfo(name,emailAddress);
     }
 
     public String getUserName() {
@@ -95,13 +101,7 @@ public class Seller extends User{
     public void setSellerId(int sellerId) {
         this.sellerId = sellerId;
     }
-    public UserInfo getUserInfo1() {
-        return userInfo1;
-    }
 
-    public void setUserInfo1(UserInfo userInfo1) {
-        this.userInfo1 = userInfo1;
-    }
 
     public Product getProduct() {
         return product;

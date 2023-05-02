@@ -10,7 +10,6 @@ public class Discount extends Cart implements DiscountInterface {
     private final double FESTIVAL_DISCOUNT = .98;
 
 
-
     public Discount(int cartId, int discountId,Boolean newUser) {
         super(cartId);
         this.setDiscountId(discountId);

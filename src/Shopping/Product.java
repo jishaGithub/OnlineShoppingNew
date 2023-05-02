@@ -9,10 +9,19 @@ public class Product {
     private double productPrice;
 
     //custom constructor
+    public Product(){
+
+    }
     public Product(int productId, String productName,String productCategory, double productPrice, int productCount) {
         this.productId = productId;
         this.productName = productName;
         this.productCategory = productCategory;
+        this.productCount = productCount;
+        this.productPrice = productPrice;
+    }
+    public Product(int productId, String productName, double productPrice, int productCount) {
+        this.productId = productId;
+        this.productName = productName;
         this.productCount = productCount;
         this.productPrice = productPrice;
     }
@@ -39,7 +48,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return productId+" "+productName+" "+productCategory+" "+productPrice+" "+productCount;
+        return productId+" "+productName+" "+productPrice+" "+productCount;
     }
 
 

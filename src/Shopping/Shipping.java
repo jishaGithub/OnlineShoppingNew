@@ -24,7 +24,6 @@ public class Shipping implements ShippingInterface{
         if(shippingPref.equals(shippingPref)) {
             shippingCost = 50;
             return this.domestic(totalPrice);
-
         }
         else {
             shippingCost = 100;;
@@ -45,13 +44,7 @@ public class Shipping implements ShippingInterface{
     }
 
     @Override
-    public double domestic(double totalPrice) {
-
-        return totalPrice + Shipping.getShippingcost();
-    }
-
-
-
+    public double domestic(double totalPrice) {return totalPrice + Shipping.getShippingcost(); }
 
     @Override
     public double international(double totalPrice) {

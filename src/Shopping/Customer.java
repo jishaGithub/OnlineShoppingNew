@@ -1,20 +1,17 @@
 package Shopping;
 
-
 public class Customer extends User {
     private int customerId;
     private String userName;
     private String password;
-
-
     private Payment payment;
     private Order order;
     private Cart cart;
     private Shipping shipping;
     private Discount discount;
+    private Product product;
     private double priceWithShipping;
     private double priceWithDiscount;
-
 
     public Customer(int customerId, String userName, String password) {
         this.customerId = customerId;
@@ -29,32 +26,44 @@ public class Customer extends User {
         }
         Customer customer = (Customer) obj;
         return(customer.customerId == this.customerId && customer.userName == this.userName );
-
     }
+
+
     @Override
     public int hashCode() {
         final int PRIME = 31;
         int result = 1;
         result = PRIME * result +this.customerId;
         return result;
-
     }
 
+
+        public void setAddress ( int addressId, String streetAddress, String city, String state,int zip) throws NotValidZipException  {
+
+        super.setAddressUser(addressId, streetAddress, city, state, zip);
+    }
+
+
+    public void setCustomerInfo(String name, String emailAddress, String phoneNumber)  {
+
+        super.setUserInfo(name,emailAddress,phoneNumber,address);
+    }
 
     @Override
-    public void getUserInfo() {
-        address = new Address(1,"westland lane","westland","NH",67894);
-        userInfo1 = new UserInfo("Jisha","jisha@gmail.com","8690001234",address);
-        userInfo1.getCustomerInfo();
-
+    public void getUserInfo() throws InvalidAddressException {
+         getCustomerInfo();
     }
+
     @Override
     public void welcomeMsg() {
         System.out.println("Welcome to customer portal");
-
     }
+
     @Override
-    public void login(String userName, String password) {
+    public void login(String userName, String password) throws SameValueException {
+        if(userName==password){
+            throw new SameValueException("The username and password cannot be same");
+        }
         if(userName.equals(this.getUserName())&&(password.equals(this.getPassword()))) {
             System.out.println(this.getUserName()+" logged in successfully");
         }
@@ -63,9 +72,13 @@ public class Customer extends User {
         }
     }
 
-    public void addProductsToCart(int productId, String productName, double productPrice,int productCount ) {
-        cart = new Cart(1);
-        cart.addProductsToCart(productId,productName,productPrice,productCount);
+    public void addProductsToCart(int productId, String productName, double productPrice,int productCount ) throws NotPositiveException{
+
+             cart = new Cart(1);
+             cart.addProductsToCart(productId,productName,productPrice,productCount);
+             if(productCount<0 || productId<0 || productPrice<0){
+                 throw new NotPositiveException("Product count/Product Price/ Product Id cannot be negative");
+             }
 
     }
 
@@ -79,7 +92,7 @@ public class Customer extends User {
 
     }
 
-    public void makePurchase(int cartId, int paymentId, String cardType, String cardNo) {
+    public void makePurchase(int cartId, int paymentId, String cardType, String cardNo) throws NotValidCardNoException {
 
         shipping = new Shipping(1);
         System.out.println("The total cost before shipping and discount : "+cart.getTotalPrice());
@@ -88,7 +101,10 @@ public class Customer extends User {
         discount = new Discount(cartId,1,true);
         priceWithDiscount = (int)(discount.discountTotalPrice(priceWithShipping,true)*100)/100.0;
         System.out.println("The total cost after applying discount : "+priceWithDiscount);
-        payment = new Payment(cartId,paymentId,cardType,cardNo);
+        if(cardNo.length()!=16){
+            throw new NotValidCardNoException("Card number should be 16 digits");
+        }
+        payment = new Payment(paymentId,cardType,cardNo);
         payment.makePurchase(priceWithDiscount);
 
     }
@@ -127,13 +143,6 @@ public class Customer extends User {
     public void setDiscount(Discount discount) {
         this.discount = discount;
     }
-
-
-
-
-
-
-
 
 
 }

@@ -18,13 +18,10 @@ public class Address implements AddressInterface {
         this.state = state;
         this.zip = zip;
     }
-
-
     @Override
     public String toString() {
         return "\n"+this.streetAddress+" , "+this.city+" , "+this.state+" , "+zip;
     }
-
 
     public String getAddress() {
         return this.addressId+"  "+this.streetAddress +","+ this.city +","+  this.state +","+ this.zip;
