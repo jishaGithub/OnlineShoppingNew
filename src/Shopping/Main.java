@@ -1,43 +1,64 @@
-
 package Shopping;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Main {
-    public static void main(String[] args) {
 
-        Owner owner1 = new Owner(1,"Tom");
-        owner1.addProducts(4, "Watermelon", 2.99);
-        System.out.println(owner1.getProducts());
-        owner1.setCompany("Walmart");
-        System.out.println(owner1.getOwnerDetails());
+    // Since static only one copy of logger will be created in the memory
+    private static final Logger logger = LogManager.getLogger(Shopping.Main.class);
+    public static void main(String[] args) throws NotValidZipException, InvalidAddressException, SameValueException, NotPositiveException {
 
-        User user1 = new User(1,1);
-        user1.setLoginCredentials("user123", "welcome123");
-        System.out.println(user1.getUserInformation());
+        Guest guest1 = new Guest(1);
+        guest1.setAddress(1,"olive road", "keene", "MI", 56789);
+        guest1.createGuest("guest1","123","Mack","mack@gmail.com","7867854567");
+        Guest guest2 = new Guest(2);
+        guest2.setAddress(2,"haley street","atlanta","ga",34567);
+        guest2.createGuest("guest2","567","Tony","tony@gmail.com","7864539078");
+        Shopping.Guest.viewGuests();
+        guest1.login("guest1","123");
+        guest2.login("guest2","789");
+        guest1.welcomeMsg();
+        Guest.viewAddresses();
 
-        Address address1 = new Address(10, 1);
-        address1.setAddress("street2", "city2", "state2", 56789);
-        System.out.println(address1.getAddress());
 
 
-        Product product1 = new Product(1);
-        product1.setProduct("Broccali", "Vegetables", 5);
-        System.out.println(product1.getProductDetails());
+        System.out.println("--------");
+        Seller seller1 = new Seller(1, "seller123", "seller");
+        seller1.login("seller123", "seller");
 
-        Cart cart1 = new Cart(1);
-        cart1.addProductsToCart(3, "apples",2.50, 4);
-        cart1.addProductsToCart(4, "oranges",2.0, 3);
-        cart1.addProductsToCart(2, "peaches",1.0, 2);
-        cart1.viewCart();
+        seller1.welcomeMsg();
+        seller1.setSellerInfo("Sunny","sunny@gmail.com");
+        Seller.viewSellers();
+        seller1.addProducts(1, "Apples", "Fruits", 2.99, 4);
+        seller1.addProducts(2,"Oranges","Fruits",1.99,6);
+        seller1.viewProducts();
 
-        Payment payment1 = new Payment(1001,1);
-        payment1.setCardType("Visa");
-        payment1.setCardNo("1234567899043567");
-        payment1.makePurchase();
 
-        Shipping shipping1 = new Shipping(1,2);
-        shipping1.setShippingAddress("lost lake lane, keene, nh, 78645");
-        shipping1.setShippingCompany("Fedex");
-        System.out.println(shipping1.shippingInfo());
+
+
+        Customer customer1 = new Customer(1);
+        customer1.setAddress(1,"westland lane", "westland", "NH", 12345);
+        customer1.addCustomerInfo("cust1","456","Sam","sam@gmail.com","7894532345");
+        customer1.login("cust1","456");
+        customer1.welcomeMsg();
+        Customer.viewCustomers();
+        Customer.viewAddresses();
+        customer1.addProductsToCart(2, "Oranges", 1.99, 5);
+        customer1.addProductsToCart(1, "Apples", 2.99, 2);
+        customer1.viewCart();
+        customer1.placeOrder();
+        try {
+            customer1.makePurchase(1, 1, "VISA", "123412451256123");
+            customer1.makePurchase(1, 1, "VISA", "1234124512561237");
+        }
+        catch(NotValidCardNoException ex){
+            logger.log(Level.INFO,ex.getMessage());
+        }
+
+      logger.warn("Warning");
+
 
     }
 

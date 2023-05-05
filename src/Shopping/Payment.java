@@ -1,63 +1,77 @@
 package Shopping;
 
-public class Payment {
-    private int cartId;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+public final class Payment {
+
+    private static final Logger logger = LogManager.getLogger(Shopping.Payment.class);
+
     private int paymentId;
     private String cardType;
     private String cardNo;
+    Cart cart;
+    public Payment(int paymentId) {
 
-    //custom constructor
-    public Payment(int paymentId, int cartId) {
-        this.setCartId(cartId);
-        this.setPaymentId(paymentId);
+        this.paymentId = paymentId;
     }
+    int cardNoInteger;
+    public Payment( int paymentId, String cardType, String cardNo) throws NotValidCardNoException,NumberFormatException {
 
-    //getter for card type
-    public String getCardType() {
-        return cardType;
-    }
-
-    //setter for card type
-    public void setCardType(String cardType) {
+        this.paymentId = paymentId;
         this.cardType = cardType;
-    }
-
-    // getter for card no
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    // setter for card no
-    public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
+
+        if(cardNo.length()!=16){
+            throw new NotValidCardNoException("Credit card number length error");
+        }
+        try {
+            int cardNoInteger = Integer.parseInt(cardNo);
+        }
+        catch(NumberFormatException nfe){
+             logger.log(Level.INFO,nfe.getMessage());
+
+        }
+
+
     }
+
 
     // function to display the purchase confirmation
-    public void makePurchase(){
-        System.out.println("Paid using "+this.cardType+" card ending with "+this.cardNo.substring(12));
+    public void makePurchase(double totalPrice){
+        cart = new Cart(1);
+        System.out.println("Paid "+totalPrice+"$ using "+this.cardType+" card ending with "+this.cardNo.substring(12));
         System.out.println("Purchase Successful!");
     }
 
-    // getter for cart id
-    public int getCartId() {
-        return cartId;
-    }
-
-    // setter for cart id
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
-    // getter for payment id
     public int getPaymentId() {
         return paymentId;
     }
 
-    // setter for payment id
+
     public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
     }
 
 
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
 
 }
