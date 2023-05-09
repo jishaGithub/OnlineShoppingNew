@@ -1,4 +1,4 @@
-package Shipping;
+package com.laba.shippingpackage;
 
 
 

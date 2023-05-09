@@ -1,4 +1,4 @@
-package Linked;
+package com.laba.linkedpackage;
 
 class node<T> {
     T data;

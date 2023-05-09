@@ -1,4 +1,4 @@
-package Shopping;
+package com.laba.discountpackage;
 
 
 

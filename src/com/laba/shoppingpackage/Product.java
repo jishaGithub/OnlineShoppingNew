@@ -1,18 +1,32 @@
-package Shopping;
+package com.laba.shoppingpackage;
+
+import com.laba.exceptionpackage.NotPositiveException;
 
 public class Product {
 
+    private static int productsCount = 0;
     private int productId;
     private String productName;
     private String productCategory;
     private int productCount;
     private double productPrice;
 
-    //custom constructor
-    public Product(){     }
+    public Product(){
+
+    }
     public Product(int productId, String productName,String productCategory, double productPrice, int productCount) throws NotPositiveException {
+        String errorArgument="";
         if(productCount <0 | productPrice<0 ){
-            throw new NotPositiveException("The productPrice/productCount cannot be less than zero");
+            if(productCount<0){
+                errorArgument = String.valueOf(productCount);
+            }
+            if(productPrice<0){
+                errorArgument = String.valueOf(productPrice);
+            }
+            if(productCount<0 && productPrice<0){
+                errorArgument = String.valueOf(productPrice)+" "+String.valueOf(productCount);
+            }
+            throw new NotPositiveException(errorArgument,"The productPrice/productCount cannot be less than zero "+errorArgument);
         }
         this.productId = productId;
         this.productName = productName;
@@ -20,10 +34,10 @@ public class Product {
         this.productCount = productCount;
         this.productPrice = productPrice;
     }
-
     public Product(int productId, String productName, double productPrice, int productCount) throws NotPositiveException {
         if(productCount <0 | productPrice<0 ){
-            throw new NotPositiveException("The productPrice/productCount cannot be less than zero");
+            String errorCount = productCount+" , "+productPrice;
+            throw new NotPositiveException(errorCount,"The productPrice/productCount cannot be less than zero "+errorCount);
         }
         this.productId = productId;
         this.productName = productName;
@@ -54,45 +68,4 @@ public class Product {
     public String toString() {
         return productId+" "+productName+" "+productPrice+" "+productCount;
     }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public int getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
-    }
-
-    public double getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
-    }
-
 }
